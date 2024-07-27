@@ -269,6 +269,7 @@
     DECL(thermopro_tp829b) \
     DECL(arad_ms_meter) \
     DECL(aldi_sempre) \
+    DECL(wind_tester) \
 
     /* Add new decoders here. */
 
