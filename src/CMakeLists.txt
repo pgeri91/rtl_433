@@ -265,6 +265,7 @@ add_library(r_433 STATIC
     devices/watts_thermostat.c
     devices/waveman.c
     devices/wec2103.c
+    devices/wind_tester.c
     devices/wg_pb12v1.c
     devices/ws2032.c
     devices/wssensor.c
