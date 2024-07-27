@@ -11,12 +11,13 @@
 
 #include "decoder.h"
 
-static int wind_test_decode(r_device *decoder, bitbuffer_t *bitbuffer)
+static int wind_tester_decode(r_device *decoder, bitbuffer_t *bitbuffer)
 {
     uint8_t const preamble[] = {0x5f, 0xb4}; // 12 bits
 
     int r = -1;
-    uint8_t b[4];
+    uint8_t b[14];
+    uint8_t c[16]; // 112 bits are 14 bytes
     data_t *data;
 
     if (bitbuffer->num_rows > 2) {
@@ -58,7 +59,7 @@ static int wind_test_decode(r_device *decoder, bitbuffer_t *bitbuffer)
 
     /* clang-format off */
     data = data_make(
-            "model",            "",                 DATA_STRING, "Wind test",
+            "model",            "",                 DATA_STRING, "Wind tester",
             //"subtype",          "Type code",        DATA_INT, subtype,
             "rotations",     "Rotations",             DATA_FORMAT, "%.1f", DATA_DOUBLE, rotations * 0.1f,
             "wind",     "Wind",             DATA_FORMAT, "%.1f km/h", DATA_DOUBLE, wind * 0.1f,
@@ -71,7 +72,7 @@ static int wind_test_decode(r_device *decoder, bitbuffer_t *bitbuffer)
     return 1;
 }
 
-static char const *const wind_test_output_fields[] = {
+static char const *const wind_tester_output_fields[] = {
         "model",
         //"subtype",
         "rotations",
@@ -81,13 +82,13 @@ static char const *const wind_test_output_fields[] = {
         NULL,
 };
 
-r_device const cotech_36_7959 = {
-        .name        = "Wind test",
+r_device const wind_tester = {
+        .name        = "Wind tester",
         .modulation  = OOK_PULSE_MANCHESTER_ZEROBIT,
         .short_width = 500,
         .long_width  = 0,    // not used
         .gap_limit   = 1200, // Not used
         .reset_limit = 1200, // Packet gap is 5400 us.
-        .decode_fn   = &wind_test_decode,
-        .fields      = wind_test_output_fields,
+        .decode_fn   = &wind_tester_decode,
+        .fields      = wind_tester_output_fields,
 };
